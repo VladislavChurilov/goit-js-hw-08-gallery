@@ -6,9 +6,29 @@
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
-<body class=".lightbox">
+<body>
     
 <ul class="gallery js-gallery"></ul>
+
+<div class="lightbox js-lightbox">
+  <div class="lightbox__overlay"></div>
+
+  <div class="lightbox__content">
+    <img class="lightbox__image" src="" alt="" />
+  </div>
+
+  <button
+    type="button"
+    class="lightbox__button"
+    data-action="close-lightbox"
+  ></button>
+</div>
+
+    
+    <script src="./gallery-items.js"type="module"></script>
+    <script src="./gallery.js"type="module"></script>
+</body>
+</html>
 <!-- <li class="gallery__item">
   <a
     class="gallery__link"
@@ -22,10 +42,3 @@
     />
   </a>
 </li> -->
-
-
-    
-    <script src="./gallery-items.js"type="module"></script>
-    <script src="./gallery.js"type="module"></script>
-</body>
-</html>

@@ -1,7 +1,13 @@
 import gallery from'./gallery-items.js';
 
-const listRef = document.querySelector("ul.js-gallery");
-// создание дин. разметки
+const listRef = document.querySelector(".js-gallery");
+const overlayRef = document.querySelector('.lightbox');
+const activeImg = document.querySelector('.lightbox__image');
+const lightboxRef = document.querySelector('.lightbox__overlay');
+const buttonRef = document.querySelector('.lightbox__button');
+
+listRef.addEventListener ("click", handleUlClick);
+
 const createList = gallery =>{
 const itemRef = document.createElement('li');
 itemRef.classList.add('gallery__item');
@@ -12,68 +18,57 @@ alt="${gallery.description}"/></a>`);
 listRef.append(itemRef);
 return itemRef;
 };
-
 const imgCards = gallery.map(item => createList(item));
 
-listRef.addEventListener ("click", handleUlClick);
-// делаем что то непонятное
-function handleUlClick (event){
+function handleUlClick (event){    
     event.preventDefault();
     const target = event.target;
-    // event.src = event.dataset.source;
-    // 'src' === 'dataSource';
-    console.log(gallery.source);
-    console.dir(event.target);
-    // console.dir(event.target);
-    // console.log('hellloo');
-    if (target.nodeName !== "A"){
-        // console.log('ggggg');
+    if (target.nodeName !== "IMG"){        
         return;
     };
-    // return ;
-    setActiveLink(target);
+    // console.log(target.nodeName);    
+    setActiveLink(target); 
+    activeImg.src = target.dataset.source;     
 };
 function setActiveLink(nextActiveLink){
     const currentActiveLink = listRef.querySelector(".gallery__link");
     if (currentActiveLink){
-        currentActiveLink.classList.remove('.gallery__link');
+        currentActiveLink.classList.remove('gallery__link');
     }
-    nextActiveLink.classList.add('.gallery__link', );
+    nextActiveLink.classList.add('gallery__link' );
 };
 // ===modal===
-// слушатель на лишку и открытие модалки
-const modalRef = document.querySelector('li.gallery__item');
-modalRef.addEventListener('click', () =>
-    handleOpenModal());    
-// document.body.classList.add('.is-open');
-// document.body.classList.add('.lightbox__overlay');
 
-//  закрытие модалке по клику на оверлей и ВИДИМО НУЖНО 
-// ДОБАВИТЬ КНОПКУ ЗАКРЫТИЯ ПОВЕСИТЬ СЛУШАТЕЛЬ НА НЕЕ И ЗАСУНУТЬ В Ф-Ю
-const overlayRef = document.querySelector('.lightbox__overlay');
-overlayRef.addEventListener('click',event => {
-    handleCloseModal(event);
+listRef.addEventListener('click', () => handleOpenModal());
+
+overlayRef.addEventListener('click',event => {    
+    // handleCloseModal(event);
     handleOverleyClick(event);
+    closeOnButton (event);
 });
 function handleOpenModal(){
-    document.body.classList.add('.is-open');
-    document.body.classList.add('.lightbox__overlay');
+    overlayRef.classList.add('is-open');    
     window.addEventListener('keydown', onPressEscape);
 }
 function handleCloseModal(){    
-    document.body.classList.remove('.is-open');        
+    overlayRef.classList.remove('is-open');        
 }
+
+lightboxRef.addEventListener ("click");
 function handleOverleyClick(event){
-    if (event.target === event.currentTarget){
-        document.body.classList.remove('.is-open');  
+    
+    if (event.target === lightboxRef){
+        handleCloseModal(); 
+      };      
+}
+buttonRef.addEventListener('click');
+function closeOnButton (event){
+    if (event.target === buttonRef){
+        handleCloseModal(); 
       };
 }
-// window.addEventListener('keydown', onPressEscape);
-//   {
-
-// });
 function onPressEscape (event){
-    if (event.code==='Escape'){
+    if (event.code ==='Escape'){
         handleCloseModal();
     };
 };
