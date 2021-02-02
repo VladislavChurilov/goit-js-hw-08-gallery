@@ -1,4 +1,4 @@
-import gallery from'./gallery-items.js';
+import gallery from'../js/gallery-items.js';
 
 const listRef = document.querySelector(".js-gallery");
 const overlayRef = document.querySelector('.lightbox');
@@ -6,7 +6,7 @@ const activeImg = document.querySelector('.lightbox__image');
 const lightboxRef = document.querySelector('.lightbox__overlay');
 const buttonRef = document.querySelector('.lightbox__button');
 
-listRef.addEventListener ("click", handleUlClick);
+
 
 const createList = gallery =>{
 const itemRef = document.createElement('li');
@@ -38,7 +38,7 @@ function setActiveLink(nextActiveLink){
     nextActiveLink.classList.add('gallery__link' );
 };
 // ===modal===
-
+listRef.addEventListener ("click", handleUlClick);
 listRef.addEventListener('click', () => handleOpenModal());
 
 overlayRef.addEventListener('click',event => {    
